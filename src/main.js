@@ -1142,8 +1142,9 @@ async function main() {
     canvas.addEventListener("touchstart", (e) => {
         carousel = false;
         e.preventDefault();
-        startX = e.clientX;
-        startY = e.clientY;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        
         down = 1
     });
 
@@ -1152,8 +1153,8 @@ async function main() {
         if (down == 1) {
             let inv = invert4(viewMatrix);
             let inv2 = invert4(viewMatrix);
-            let dx = (5 * (e.clientX - startX)) / innerWidth;
-            mousemove_y = (5 * (e.clientY - startY)) / innerHeight;
+            let dx = (5 * (e.touches[0].clientX - startX)) / innerWidth;
+            mousemove_y = (5 * (e.touches[0].clientY - startY)) / innerHeight;
             let d = 4;
 
             //inv = translate4(inv, 0, 0, d);
@@ -1167,15 +1168,15 @@ async function main() {
             //viewMatrix = ensureXZPlaneAlignment(invert4(inv));
             if (e.buttons === 1) { // Check if the left mouse button is pressed
                 if (lastY !== null) {
-                    const deltaY = (5 * (e.clientY - startY)) / innerHeight;
+                    const deltaY = (5 * (e.touches[0].clientY - startY)) / innerHeight;
                     totalVerticalDistance += deltaY;
                 }
-                lastY = e.clientY;
+                lastY = e.touches[0].clientY;
             } else {
                 lastY = null; // Reset lastY when the mouse button is not pressed
             }
-            startX = e.clientX;
-            startY = e.clientY;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
         } 
     });
 
