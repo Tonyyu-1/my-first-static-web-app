@@ -1132,6 +1132,21 @@ async function main() {
         } 
     });
 
+    canvas.addEventListener("mouseup", (e) => {
+        e.preventDefault();
+        down = false;
+        startX = 0;
+        startY = 0;
+    });
+
+    canvas.addEventListener("touchstart", (e) => {
+        carousel = false;
+        e.preventDefault();
+        startX = e.clientX;
+        startY = e.clientY;
+        down = 1
+    });
+
     canvas.addEventListener("touchmove", (e) => {
         e.preventDefault();
         if (down == 1) {
@@ -1163,15 +1178,20 @@ async function main() {
             startY = e.clientY;
         } 
     });
-    
-    canvas.addEventListener("mouseup", (e) => {
+
+
+    canvas.addEventListener("touchend", (e) => {
         e.preventDefault();
         down = false;
         startX = 0;
         startY = 0;
     });
 
-    
+
+
+
+
+
 
     let jumpDelta = 0;
     let vertexCount = 0;
