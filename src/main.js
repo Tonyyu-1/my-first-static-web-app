@@ -1131,6 +1131,39 @@ async function main() {
             startY = e.clientY;
         } 
     });
+
+    canvas.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+        if (down == 1) {
+            let inv = invert4(viewMatrix);
+            let inv2 = invert4(viewMatrix);
+            let dx = (5 * (e.clientX - startX)) / innerWidth;
+            mousemove_y = (5 * (e.clientY - startY)) / innerHeight;
+            let d = 4;
+
+            //inv = translate4(inv, 0, 0, d);
+            inv = rotate4(inv, dx, 0, 1, 0);
+            //inv = rotate4(inv, -dy, 1, 0, 0);
+            //inv = translate4(inv, 0, 0, -d);
+            // let postAngle = Math.atan2(inv[0], inv[10])
+            // inv = rotate4(inv, postAngle - preAngle, 0, 0, 1)
+            // console.log(postAngle)
+            viewMatrix = invert4(inv);
+            //viewMatrix = ensureXZPlaneAlignment(invert4(inv));
+            if (e.buttons === 1) { // Check if the left mouse button is pressed
+                if (lastY !== null) {
+                    const deltaY = (5 * (e.clientY - startY)) / innerHeight;
+                    totalVerticalDistance += deltaY;
+                }
+                lastY = e.clientY;
+            } else {
+                lastY = null; // Reset lastY when the mouse button is not pressed
+            }
+            startX = e.clientX;
+            startY = e.clientY;
+        } 
+    });
+    
     canvas.addEventListener("mouseup", (e) => {
         e.preventDefault();
         down = false;
@@ -1297,7 +1330,7 @@ async function main() {
                 let furchunks = getfurChunks(chunkX, chunkZ, lastchunkX, lastchunkZ);
                 
                 if(lastchunkX !== null){  
-                    filterchunkdata(chunkX, chunkZ, lastchunkX, lastchunkZ);
+                    afilterchunkdata(chunkX, chunkZ, lastchunkX, lastchunkZ);
                 }
                 
 
