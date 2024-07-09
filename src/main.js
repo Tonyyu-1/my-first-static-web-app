@@ -1166,7 +1166,7 @@ async function main() {
             // console.log(postAngle)
             viewMatrix = invert4(inv);
             //viewMatrix = ensureXZPlaneAlignment(invert4(inv));
-            if (e.buttons === 1) { // Check if the left mouse button is pressed
+            if (1) { // Check if the left mouse button is pressed
                 if (lastY !== null) {
                     const deltaY = (5 * (e.touches[0].clientY - startY)) / innerHeight;
                     totalVerticalDistance += deltaY;
