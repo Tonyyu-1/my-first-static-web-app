@@ -1278,20 +1278,31 @@ async function main() {
     function moveCamera(direction, state) {
         buttonStates[direction] = state;
     }
-
+    function handleTouchStart(direction) {
+        return function(e) {
+            e.preventDefault(); // 阻止默认行为
+            moveCamera(direction, true);
+        };
+    }
+    function handleTouchEnd(direction) {
+        return function(e) {
+            e.preventDefault(); // 阻止默认行为
+            moveCamera(direction, false);
+        };
+    }
     // Event listeners for the buttons
-    document.getElementById('moveForward').addEventListener('mousedown', () => moveCamera('forward', true));
-    document.getElementById('moveForward').addEventListener('mouseup', () => moveCamera('forward', false));
-    document.getElementById('moveBackward').addEventListener('mousedown', () => moveCamera('backward', true));
-    document.getElementById('moveBackward').addEventListener('mouseup', () => moveCamera('backward', false));
-    document.getElementById('moveLeft').addEventListener('mousedown', () => moveCamera('left', true));
-    document.getElementById('moveLeft').addEventListener('mouseup', () => moveCamera('left', false));
-    document.getElementById('moveRight').addEventListener('mousedown', () => moveCamera('right', true));
-    document.getElementById('moveRight').addEventListener('mouseup', () => moveCamera('right', false));
-    document.getElementById('moveUp').addEventListener('mousedown', () => moveCamera('up', true));
-    document.getElementById('moveUp').addEventListener('mouseup', () => moveCamera('up', false));
-    document.getElementById('moveDown').addEventListener('mousedown', () => moveCamera('down', true));
-    document.getElementById('moveDown').addEventListener('mouseup', () => moveCamera('down', false));
+    document.getElementById('moveForward').addEventListener('touchstart', () => handleTouchStart('forward', true));
+    document.getElementById('moveForward').addEventListener('touchend', () => handleTouchEnd('forward', false));
+    document.getElementById('moveBackward').addEventListener('touchstart', () => handleTouchStart('backward', true));
+    document.getElementById('moveBackward').addEventListener('touchend', () => handleTouchEnd('backward', false));
+    document.getElementById('moveLeft').addEventListener('touchstart', () => handleTouchStart('left', true));
+    document.getElementById('moveLeft').addEventListener('touchend', () => handleTouchEnd('left', false));
+    document.getElementById('moveRight').addEventListener('touchstart', () => handleTouchStart('right', true));
+    document.getElementById('moveRight').addEventListener('touchend', () => handleTouchEnd('right', false));
+    document.getElementById('moveUp').addEventListener('touchstart', () => handleTouchStart('up', true));
+    document.getElementById('moveUp').addEventListener('touchend', () => handleTouchEnd('up', false));
+    document.getElementById('moveDown').addEventListener('touchstart', () => handleTouchStart('down', true));
+    document.getElementById('moveDown').addEventListener('touchend', () => handleTouchEnd('down', false));
 
 
     const frame = async (now) => {
