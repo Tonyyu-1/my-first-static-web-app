@@ -1362,7 +1362,7 @@ async function main() {
                 let furchunks = getfurChunks(chunkX, chunkZ, lastchunkX, lastchunkZ);
                 
                 if(lastchunkX !== null){  
-                    afilterchunkdata(chunkX, chunkZ, lastchunkX, lastchunkZ);
+                    filterchunkdata(chunkX, chunkZ, lastchunkX, lastchunkZ);
                 }
                 
 
