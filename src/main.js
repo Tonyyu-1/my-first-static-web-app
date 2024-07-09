@@ -1291,18 +1291,18 @@ async function main() {
         };
     }
     // Event listeners for the buttons
-    document.getElementById('moveForward').addEventListener('touchstart', () => handleTouchStart('forward', true));
-    document.getElementById('moveForward').addEventListener('touchend', () => handleTouchEnd('forward', false));
-    document.getElementById('moveBackward').addEventListener('touchstart', () => handleTouchStart('backward', true));
-    document.getElementById('moveBackward').addEventListener('touchend', () => handleTouchEnd('backward', false));
-    document.getElementById('moveLeft').addEventListener('touchstart', () => handleTouchStart('left', true));
-    document.getElementById('moveLeft').addEventListener('touchend', () => handleTouchEnd('left', false));
-    document.getElementById('moveRight').addEventListener('touchstart', () => handleTouchStart('right', true));
-    document.getElementById('moveRight').addEventListener('touchend', () => handleTouchEnd('right', false));
-    document.getElementById('moveUp').addEventListener('touchstart', () => handleTouchStart('up', true));
-    document.getElementById('moveUp').addEventListener('touchend', () => handleTouchEnd('up', false));
-    document.getElementById('moveDown').addEventListener('touchstart', () => handleTouchStart('down', true));
-    document.getElementById('moveDown').addEventListener('touchend', () => handleTouchEnd('down', false));
+    document.getElementById('moveForward').addEventListener('touchstart', () => handleTouchStart('forward'));
+    document.getElementById('moveForward').addEventListener('touchend', () => handleTouchEnd('forward'));
+    document.getElementById('moveBackward').addEventListener('touchstart', () => handleTouchStart('backward'));
+    document.getElementById('moveBackward').addEventListener('touchend', () => handleTouchEnd('backward'));
+    document.getElementById('moveLeft').addEventListener('touchstart', () => handleTouchStart('left'));
+    document.getElementById('moveLeft').addEventListener('touchend', () => handleTouchEnd('left'));
+    document.getElementById('moveRight').addEventListener('touchstart', () => handleTouchStart('right'));
+    document.getElementById('moveRight').addEventListener('touchend', () => handleTouchEnd('right'));
+    document.getElementById('moveUp').addEventListener('touchstart', () => handleTouchStart('up'));
+    document.getElementById('moveUp').addEventListener('touchend', () => handleTouchEnd('up'));
+    document.getElementById('moveDown').addEventListener('touchstart', () => handleTouchStart('down'));
+    document.getElementById('moveDown').addEventListener('touchend', () => handleTouchEnd('down'));
 
 
     const frame = async (now) => {
