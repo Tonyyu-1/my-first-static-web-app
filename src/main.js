@@ -1212,12 +1212,15 @@ async function main() {
     canvas.addEventListener("touchend", (e) => {
         e.preventDefault();
         down = false;
-        startX = 0;
-        startY = 0;
+        
         if(e.touches[0] && isMoving){
             istouched = false;
+            startX = 0;
+        startY = 0;
         }else if(!e.touches[0]){
             istouched = false;
+            startX = 0;
+        startY = 0;
         }
     });
 
@@ -1349,7 +1352,7 @@ async function main() {
 
     let offsetX = 0;
     let offsetY = 0;
-    let isMoving = null;
+    let isMoving = true;
     let joystickTouchIndex = -1;
 
     
