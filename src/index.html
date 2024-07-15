@@ -117,7 +117,7 @@
             position: absolute;
             top: 0;
             height: 5px;
-            background: blue;
+            background: white;
             z-index: 99;
             transition: width 0.1s ease-in-out;
         }
@@ -178,8 +178,6 @@
             border-radius: 5px;
             color: black;
         }
-
-        
         .control-buttons {
             position: absolute;
             bottom: 40px;
@@ -227,9 +225,7 @@
     </script>
     <div id="info">
         <h3 class="nohf">WebGL 3D Gaussian Splat Viewer</h3>
-        
     </div>
-
     <div id="progress"></div>
     <div id="message"></div>
     <div class="scene" id="spinner">
@@ -247,7 +243,6 @@
         </div>
     </div>
     <canvas id="canvas"></canvas>
-
     <div id="quality">
         <span id="fps"></span>
     </div>
@@ -258,8 +253,7 @@
     <input type="file" id="fileInput" style="display:none;">
     <button id="uploadButton">Upload File</button>
     <script src="main.js"></script>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.8.3/dist/nipplejs.min.js"></script>
     <div class="control-buttons">
         <div></div>
         <button id="moveForward">↑</button>
@@ -275,6 +269,7 @@
         <button id="moveUp">⮝</button>
         <button id="moveDown">⮟</button>
     </div>
+    <div id="joystick-container" style="position: absolute; bottom: 150px; left: 20px; width: 150px; height: 150px;"></div>
 </body>
 </html>
 

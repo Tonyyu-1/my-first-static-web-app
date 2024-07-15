@@ -1304,6 +1304,38 @@ async function main() {
     document.getElementById('moveDown').addEventListener('touchstart',  handleTouchStart('down'));
     document.getElementById('moveDown').addEventListener('touchend',  handleTouchEnd('down'));
 
+
+    const joystickContainer = document.getElementById('joystick-container');
+
+    const joystick = nipplejs.create({
+        zone: joystickContainer,
+        mode: 'static',
+        position: { left: '50%', top: '50%' },
+        color: 'blue',
+    });
+
+    let offsetX = 0;
+    let offsetY = 0;
+    let isMoving = null;
+
+    joystick.on('move', (event, data) => {
+        console.log('Joystick move event triggered');
+        console.log(data);
+        if (data.position) {
+            offsetX = data.force * Math.cos(data.angle.radian); // 获取x偏移
+            offsetY = data.force * Math.sin(data.angle.radian); // 获取y偏移
+            isMoving = true; // 标识开始移动
+            console.log(`Joystick moved: X=${offsetX}, Y=${offsetY}`);
+        }
+    });
+    
+    // 监听摇杆停止事件
+    joystick.on('end', () => {
+        isMoving = false; // 标识停止移动
+    });
+
+    
+
     let loadedChunks = [{x:0,z:0},{x:0,z:4},{x:0,z:-4},{x:4,z:0},{x:4,z:4},{x:4,z:-4},{x:-4,z:0},{x:-4,z:4},{x:-4,z:-4}];
 
     const frame = async (now) => {
@@ -1338,7 +1370,11 @@ async function main() {
             if (activeKeys.includes("KeyQ")) inv = rotate4(inv, 0.01, 0, 0, 1);
             if (activeKeys.includes("KeyE")) inv = rotate4(inv, -0.01, 0, 0, 1);
 
-            
+            if (isMoving){
+                inv = translate4(inv, 0.015 * offsetX, 0, 0.015 *offsetY);
+                console.log(`Moving with offset X: ${offsetX}, offset Y: ${offsetY}`);
+            }
+            console.log(` with offset X: ${offsetX}, offset Y: ${offsetY}`);
             let isJumping = activeKeys.includes("Space");
             //let isMoving  = 
 
