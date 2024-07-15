@@ -1143,14 +1143,14 @@ async function main() {
     });
 
 
-    let touchindex = null;
+    let touchindex = -1;
     
     canvas.addEventListener("touchstart", (e) => {
         carousel = false;
         e.preventDefault();
         if(e.touches[0] && !e.touches[1] && isMoving){
             istouched = false;
-            touchindex = null;
+            touchindex = -1;
         }else if(e.touches[0] && !e.touches[1] && !isMoving){
             istouched = true;
             touchindex = 0;
@@ -1160,12 +1160,12 @@ async function main() {
         }else if(e.touches[0] && e.touches[1] && istouched){
             istouched = true;
             touchindex = 0;
-        }else if(!e.touches){
+        }else if(!e.touches[0]){
             istouched = false;
-            touchindex = null;
+            touchindex = -1;
         }
 
-        if(touchindex){
+        if(touchindex >= 0){
             startX = e.touches[touchindex].clientX;
             startY = e.touches[touchindex].clientY;
         }
@@ -1216,11 +1216,13 @@ async function main() {
         if(e.touches[0] && isMoving){
             istouched = false;
             startX = 0;
-        startY = 0;
+            startY = 0;
+            touchindex = -1;
         }else if(!e.touches[0]){
             istouched = false;
             startX = 0;
-        startY = 0;
+            startY = 0;
+            touchindex = -1;
         }
     });
 
@@ -1352,7 +1354,7 @@ async function main() {
 
     let offsetX = 0;
     let offsetY = 0;
-    let isMoving = true;
+    let isMoving = false;
     let joystickTouchIndex = -1;
 
     
