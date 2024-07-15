@@ -1082,6 +1082,7 @@ async function main() {
     
 
     let startX, startY, down;
+    let istouched = false;
     canvas.addEventListener("mousedown", (e) => {
         carousel = false;
         e.preventDefault();
@@ -1142,30 +1143,44 @@ async function main() {
     });
 
 
-    
+    let touchindex = null;
     
     canvas.addEventListener("touchstart", (e) => {
         carousel = false;
         e.preventDefault();
-        if(e.touches[1]){
-            startX = e.touches[1].clientX;
-            startY = e.touches[1].clientY;
-        }else{
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
+        if(e.touches[0] && !e.touches[1] && isMoving){
+            istouched = false;
+            touchindex = null;
+        }else if(e.touches[0] && !e.touches[1] && !isMoving){
+            istouched = true;
+            touchindex = 0;
+        }else if(e.touches[0] && e.touches[1] && !istouched){
+            istouched = true;
+            touchindex = 1;
+        }else if(e.touches[0] && e.touches[1] && istouched){
+            istouched = true;
+            touchindex = 0;
+        }else if(!e.touches){
+            istouched = false;
+            touchindex = null;
+        }
+
+        if(touchindex){
+            startX = e.touches[touchindex].clientX;
+            startY = e.touches[touchindex].clientY;
         }
         
         
-        down = 1
+        down = 1;
     });
 
     canvas.addEventListener("touchmove", (e) => {
         e.preventDefault();
-        if (e.touches[1]) {
+        if (istouched) {
             let inv = invert4(viewMatrix);
             let inv2 = invert4(viewMatrix);
-            let dx = (5 * (e.touches[1].clientX - startX)) / innerWidth;
-            mousemove_y = (5 * (e.touches[1].clientY - startY)) / innerHeight;
+            let dx = (5 * (e.touches[touchindex].clientX - startX)) / innerWidth;
+            mousemove_y = (5 * (e.touches[touchindex].clientY - startY)) / innerHeight;
             let d = 4;
 
             //inv = translate4(inv, 0, 0, d);
@@ -1179,46 +1194,17 @@ async function main() {
             //viewMatrix = ensureXZPlaneAlignment(invert4(inv));
             if (1) { // Check if the left mouse button is pressed
                 if (lastY !== null) {
-                    const deltaY = (5 * (e.touches[1].clientY - startY)) / innerHeight;
+                    const deltaY = (5 * (e.touches[touchindex].clientY - startY)) / innerHeight;
                     if((totalVerticalDistance < -0.6 && deltaY > 0 )||(totalVerticalDistance > 0.6 && deltaY < 0)||(totalVerticalDistance>=-0.6 && totalVerticalDistance <= 0.6)){
                         totalVerticalDistance += deltaY;
                     }
                 }
-                lastY = e.touches[1].clientY;
+                lastY = e.touches[touchindex].clientY;
             } else {
                 lastY = null; // Reset lastY when the mouse button is not pressed
             }
-            startX = e.touches[1].clientX;
-            startY = e.touches[1].clientY;
-        } else{
-            let inv = invert4(viewMatrix);
-            let inv2 = invert4(viewMatrix);
-            let dx = (5 * (e.touches[0].clientX - startX)) / innerWidth;
-            mousemove_y = (5 * (e.touches[0].clientY - startY)) / innerHeight;
-            let d = 4;
-
-            //inv = translate4(inv, 0, 0, d);
-            inv = rotate4(inv, dx, 0, 1, 0);
-            //inv = rotate4(inv, -dy, 1, 0, 0);
-            //inv = translate4(inv, 0, 0, -d);
-            // let postAngle = Math.atan2(inv[0], inv[10])
-            // inv = rotate4(inv, postAngle - preAngle, 0, 0, 1)
-            // console.log(postAngle)
-            viewMatrix = invert4(inv);
-            //viewMatrix = ensureXZPlaneAlignment(invert4(inv));
-            if (1) { // Check if the left mouse button is pressed
-                if (lastY !== null) {
-                    const deltaY = (5 * (e.touches[0].clientY - startY)) / innerHeight;
-                    if((totalVerticalDistance < -0.6 && deltaY > 0 )||(totalVerticalDistance > 0.6 && deltaY < 0)||(totalVerticalDistance>=-0.6 && totalVerticalDistance <= 0.6)){
-                        totalVerticalDistance += deltaY;
-                    }
-                }
-                lastY = e.touches[0].clientY;
-            } else {
-                lastY = null; // Reset lastY when the mouse button is not pressed
-            }
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
+            startX = e.touches[touchindex].clientX;
+            startY = e.touches[touchindex].clientY;
         }
     });
 
@@ -1228,6 +1214,11 @@ async function main() {
         down = false;
         startX = 0;
         startY = 0;
+        if(e.touches[0] && isMoving){
+            istouched = false;
+        }else if(!e.touches[0]){
+            istouched = false;
+        }
     });
 
 
@@ -1359,21 +1350,28 @@ async function main() {
     let offsetX = 0;
     let offsetY = 0;
     let isMoving = null;
+    let joystickTouchIndex = -1;
+
+    
 
     joystick.on('move', (event, data) => {
-        console.log('Joystick move event triggered');
-        console.log(data);
-        if (data.position) {
-            offsetX = data.force * Math.cos(data.angle.radian); // 获取x偏移
-            offsetY = data.force * Math.sin(data.angle.radian); // 获取y偏移
-            isMoving = true; // 标识开始移动
-            console.log(`Joystick moved: X=${offsetX}, Y=${offsetY}`);
-        }
+        
+            console.log('Joystick move event triggered');
+            console.log(data);
+            if (data.position) {
+                offsetX = data.force * Math.cos(data.angle.radian); // 获取x偏移
+                offsetY = data.force * Math.sin(data.angle.radian); // 获取y偏移
+                isMoving = true; // 标识开始移动
+                console.log(`Joystick moved: X=${offsetX}, Y=${offsetY}`);
+            }
+        
+        
     });
     
     // 监听摇杆停止事件
     joystick.on('end', () => {
         isMoving = false; // 标识停止移动
+        joystickTouchIndex = -1;
     });
 
     
