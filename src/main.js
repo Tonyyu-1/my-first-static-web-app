@@ -1147,7 +1147,7 @@ async function main() {
     canvas.addEventListener("touchstart", (e) => {
         carousel = false;
         e.preventDefault();
-        if(touch[1]){
+        if(e.touches[1]){
             startX = e.touches[1].clientX;
             startY = e.touches[1].clientY;
         }else{
@@ -1161,7 +1161,7 @@ async function main() {
 
     canvas.addEventListener("touchmove", (e) => {
         e.preventDefault();
-        if (touch[1]) {
+        if (e.touches[1]) {
             let inv = invert4(viewMatrix);
             let inv2 = invert4(viewMatrix);
             let dx = (5 * (e.touches[1].clientX - startX)) / innerWidth;
