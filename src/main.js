@@ -1121,7 +1121,9 @@ async function main() {
             if (e.buttons === 1) { // Check if the left mouse button is pressed
                 if (lastY !== null) {
                     const deltaY = (5 * (e.clientY - startY)) / innerHeight;
-                    totalVerticalDistance += deltaY;
+                    if((totalVerticalDistance < -0.6 && deltaY > 0 )||(totalVerticalDistance > 0.6 && deltaY < 0)||(totalVerticalDistance>=-0.6 && totalVerticalDistance <= 0.6)){
+                        totalVerticalDistance += deltaY;
+                    }
                 }
                 lastY = e.clientY;
             } else {
