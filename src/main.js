@@ -1142,55 +1142,84 @@ async function main() {
     });
 
 
-    let startTouches = [];
-    function initializeTouchPoints(touches) {
-        startTouches = Array.from(touches).map(touch => ({
-            id: touch.identifier,
-            startX: touch.clientX,
-            startY: touch.clientY
-        }));
-    }
-
-    function getTouchDeltas(touches) {
-        let deltas = Array.from(touches).map(touch => {
-            let startTouch = startTouches.find(t => t.id === touch.identifier);
-            if (startTouch) {
-                return {
-                    dx: (5 * (touch.clientX - startTouch.startX)) / innerWidth,
-                    dy: (5 * (touch.clientY - startTouch.startY)) / innerHeight
-                };
-            }
-            return { dx: 0, dy: 0 };
-        });
-        return deltas;
-    }
-
-    function updateViewMatrix(deltas) {
-        let inv = invert4(viewMatrix);
-        deltas.forEach(delta => {
-            inv = rotate4(inv, delta.dx, 0, 1, 0);
-            //inv = rotate4(inv, -delta.dy, 1, 0, 0);
-            
-                //if (lastY !== null) {
-                    const deltaY = (5 * delta.dy) / innerHeight;
-                    if((totalVerticalDistance < -0.6 && deltaY > 0 )||(totalVerticalDistance > 0.6 && deltaY < 0)||(totalVerticalDistance>=-0.6 && totalVerticalDistance <= 0.6)){
-                        totalVerticalDistance += deltaY;
-                    }
-                //}
-            
-        });
-        viewMatrix = invert4(inv);
-    }
-
+    
+    
     canvas.addEventListener("touchstart", (e) => {
         carousel = false;
         e.preventDefault();
-        initializeTouchPoints(e.touches);
+        if(touch[1]){
+            startX = e.touches[1].clientX;
+            startY = e.touches[1].clientY;
+        }else{
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        }
+        
+        
+        down = 1
     });
 
-    canvas.addEventListener("touchend", (e) => {
+    canvas.addEventListener("touchmove", (e) => {
         e.preventDefault();
-        initializeTouchPoints(e.touches); // 更新触控点位置
+        if (touch[1]) {
+            let inv = invert4(viewMatrix);
+            let inv2 = invert4(viewMatrix);
+            let dx = (5 * (e.touches[1].clientX - startX)) / innerWidth;
+            mousemove_y = (5 * (e.touches[1].clientY - startY)) / innerHeight;
+            let d = 4;
+
+            //inv = translate4(inv, 0, 0, d);
+            inv = rotate4(inv, dx, 0, 1, 0);
+            //inv = rotate4(inv, -dy, 1, 0, 0);
+            //inv = translate4(inv, 0, 0, -d);
+            // let postAngle = Math.atan2(inv[0], inv[10])
+            // inv = rotate4(inv, postAngle - preAngle, 0, 0, 1)
+            // console.log(postAngle)
+            viewMatrix = invert4(inv);
+            //viewMatrix = ensureXZPlaneAlignment(invert4(inv));
+            if (1) { // Check if the left mouse button is pressed
+                if (lastY !== null) {
+                    const deltaY = (5 * (e.touches[1].clientY - startY)) / innerHeight;
+                    if((totalVerticalDistance < -0.6 && deltaY > 0 )||(totalVerticalDistance > 0.6 && deltaY < 0)||(totalVerticalDistance>=-0.6 && totalVerticalDistance <= 0.6)){
+                        totalVerticalDistance += deltaY;
+                    }
+                }
+                lastY = e.touches[1].clientY;
+            } else {
+                lastY = null; // Reset lastY when the mouse button is not pressed
+            }
+            startX = e.touches[1].clientX;
+            startY = e.touches[1].clientY;
+        } else{
+            let inv = invert4(viewMatrix);
+            let inv2 = invert4(viewMatrix);
+            let dx = (5 * (e.touches[0].clientX - startX)) / innerWidth;
+            mousemove_y = (5 * (e.touches[0].clientY - startY)) / innerHeight;
+            let d = 4;
+
+            //inv = translate4(inv, 0, 0, d);
+            inv = rotate4(inv, dx, 0, 1, 0);
+            //inv = rotate4(inv, -dy, 1, 0, 0);
+            //inv = translate4(inv, 0, 0, -d);
+            // let postAngle = Math.atan2(inv[0], inv[10])
+            // inv = rotate4(inv, postAngle - preAngle, 0, 0, 1)
+            // console.log(postAngle)
+            viewMatrix = invert4(inv);
+            //viewMatrix = ensureXZPlaneAlignment(invert4(inv));
+            if (1) { // Check if the left mouse button is pressed
+                if (lastY !== null) {
+                    const deltaY = (5 * (e.touches[0].clientY - startY)) / innerHeight;
+                    if((totalVerticalDistance < -0.6 && deltaY > 0 )||(totalVerticalDistance > 0.6 && deltaY < 0)||(totalVerticalDistance>=-0.6 && totalVerticalDistance <= 0.6)){
+                        totalVerticalDistance += deltaY;
+                    }
+                }
+                lastY = e.touches[0].clientY;
+            } else {
+                lastY = null; // Reset lastY when the mouse button is not pressed
+            }
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        }
     });
 
 
