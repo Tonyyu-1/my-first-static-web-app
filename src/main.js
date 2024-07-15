@@ -1304,6 +1304,7 @@ async function main() {
     document.getElementById('moveDown').addEventListener('touchstart',  handleTouchStart('down'));
     document.getElementById('moveDown').addEventListener('touchend',  handleTouchEnd('down'));
 
+    let loadedChunks = [{x:0,z:0},{x:0,z:4},{x:0,z:-4},{x:4,z:0},{x:4,z:4},{x:4,z:-4},{x:-4,z:0},{x:-4,z:4},{x:-4,z:-4}];
 
     const frame = async (now) => {
         let elapsed = now - lastFrameTime;
@@ -1362,7 +1363,7 @@ async function main() {
                 let furchunks = getfurChunks(chunkX, chunkZ, lastchunkX, lastchunkZ);
                 
                 if(lastchunkX !== null){  
-                    filterchunkdata(chunkX, chunkZ, lastchunkX, lastchunkZ);
+                    //filterchunkdata(chunkX, chunkZ, lastchunkX, lastchunkZ);
                 }
                 
 
@@ -1465,9 +1466,9 @@ async function main() {
         let furChunks = [];
         for (let dx = -1; dx <= 1; dx++) {
             for (let dz = -1; dz <= 1; dz++) {
-                if(chunkX + dx*4 < lastchunkX - 4 || chunkX + dx*4 > lastchunkX + 4 || chunkZ + dz*4 < lastchunkZ - 4 || chunkZ + dz*4 > lastchunkZ + 4){
+                //if(chunkX + dx*4 < lastchunkX - 4 || chunkX + dx*4 > lastchunkX + 4 || chunkZ + dz*4 < lastchunkZ - 4 || chunkZ + dz*4 > lastchunkZ + 4){
                     furChunks.push({ x: lastchunkX - dx*4, z: lastchunkZ - dz*4 });
-                }
+                //}
             }
         }
         return furChunks;
@@ -1516,6 +1517,11 @@ async function main() {
     }
 
     async function loadChunkData(chunkX, chunkZ) {
+        const chunkKey = `${chunkX}_${chunkZ}`;
+        if (loadedChunks.some(chunk => chunk.x === chunkX && chunk.z === chunkZ)) {
+            console.log(`Chunk at (${chunkX}, ${chunkZ}) is already loaded.`);
+            return new Uint8Array(); // 返回一个空的 Uint8Array
+        }
         const chunkUrl = getChunkUrl(chunkX, chunkZ);
         const response = await fetch(chunkUrl);
         if (!response.ok) {
@@ -1532,7 +1538,7 @@ async function main() {
             chunkData.set(value, bytesRead);
             bytesRead += value.length;
         }
-    
+        loadedChunks.push({ x: chunkX, z: chunkZ });
         return chunkData.buffer;
     }
 
