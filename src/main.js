@@ -1337,10 +1337,10 @@ async function main() {
     // document.getElementById('moveLeft').addEventListener('touchend',  handleTouchEnd('left'));
     // document.getElementById('moveRight').addEventListener('touchstart',  handleTouchStart('right'));
     // document.getElementById('moveRight').addEventListener('touchend',  handleTouchEnd('right'));
-    // document.getElementById('moveUp').addEventListener('touchstart',  handleTouchStart('up'));
-    // document.getElementById('moveUp').addEventListener('touchend',  handleTouchEnd('up'));
-    // document.getElementById('moveDown').addEventListener('touchstart',  handleTouchStart('down'));
-    // document.getElementById('moveDown').addEventListener('touchend',  handleTouchEnd('down'));
+     document.getElementById('moveUp').addEventListener('touchstart',  handleTouchStart('up'));
+     document.getElementById('moveUp').addEventListener('touchend',  handleTouchEnd('up'));
+     document.getElementById('moveDown').addEventListener('touchstart',  handleTouchStart('down'));
+     document.getElementById('moveDown').addEventListener('touchend',  handleTouchEnd('down'));
 
 
     const joystickContainer = document.getElementById('joystick-container');
