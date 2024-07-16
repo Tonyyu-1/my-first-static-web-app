@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <title>WebGL Gaussian Splat Viewer</title>
+    <title>3D-Gaussian-Splatting-based Immersive Street View Map</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -178,7 +178,7 @@
             border-radius: 5px;
             color: black;
         }
-        .control-buttons {
+        /* .control-buttons {
             position: absolute;
             bottom: 40px;
             left: 10px;
@@ -198,7 +198,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: medium;
-        }
+        } */
         .vertical-buttons {
             position: absolute;
             bottom: 10px;
@@ -224,7 +224,7 @@
         if(location.host.includes('hf.space')) document.body.classList.add('nohf');
     </script>
     <div id="info">
-        <h3 class="nohf">WebGL 3D Gaussian Splat Viewer</h3>
+        <h3 class="nohf">3D-Gaussian-Splatting-based Immersive Street View Map</h3>
     </div>
     <div id="progress"></div>
     <div id="message"></div>
@@ -254,7 +254,7 @@
     <button id="uploadButton">Upload File</button>
     <script src="main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.8.3/dist/nipplejs.min.js"></script>
-    <div class="control-buttons">
+    <!-- <div class="control-buttons">
         <div></div>
         <button id="moveForward">↑</button>
         <div></div>
@@ -264,12 +264,12 @@
         <div></div>
         <button id="moveBackward">↓</button>
         <div></div>
-    </div>
+    </div> -->
     <div class="vertical-buttons">
         <button id="moveUp">⮝</button>
         <button id="moveDown">⮟</button>
     </div>
-    <div id="joystick-container" style="position: absolute; bottom: 150px; left: 20px; width: 150px; height: 150px;"></div>
+    <div id="joystick-container" style="position: absolute; bottom: 80px; left: 20px; width: 150px; height: 150px;"></div>
 </body>
 </html>
 
