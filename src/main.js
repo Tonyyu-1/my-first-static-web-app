@@ -683,7 +683,7 @@ async function main() {
         // "nike.splat",
         // location.href,
         params.get("url") || "chunk_0_0.splat",
-        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding/",
+        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding-clean/",
     );
     const req1 = await fetch(url1, {
         headers: {
@@ -697,7 +697,7 @@ async function main() {
         // "nike.splat",
         // location.href,
         params.get("url") || "chunk_-4_0.splat",
-        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding/",
+        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding-clean/",
     );
     const req2 = await fetch(url2, {
         headers: {
@@ -711,7 +711,7 @@ async function main() {
         // "nike.splat",
         // location.href,
         params.get("url") || "chunk_0_-4.splat",
-        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding/",
+        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding-clean/",
     );
     const req3 = await fetch(url3, {
         headers: {
@@ -725,7 +725,7 @@ async function main() {
         // "nike.splat",
         // location.href,
         params.get("url") || "chunk_-4_-4.splat",
-        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding/",
+        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding-clean/",
     );
     const req4 = await fetch(url4, {
         headers: {
@@ -739,7 +739,7 @@ async function main() {
         // "nike.splat",
         // location.href,
         params.get("url") || "chunk_4_0.splat",
-        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding/",
+        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding-clean/",
     );
     const req5 = await fetch(url5, {
         headers: {
@@ -753,7 +753,7 @@ async function main() {
         // "nike.splat",
         // location.href,
         params.get("url") || "chunk_0_4.splat",
-        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding/",
+        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding-clean/",
     );
     const req6 = await fetch(url6, {
         headers: {
@@ -767,7 +767,7 @@ async function main() {
         // "nike.splat",
         // location.href,
         params.get("url") || "chunk_4_4.splat",
-        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding/",
+        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding-clean/",
     );
     const req7 = await fetch(url7, {
         headers: {
@@ -781,7 +781,7 @@ async function main() {
         // "nike.splat",
         // location.href,
         params.get("url") || "chunk_-4_4.splat",
-        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding/",
+        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding-clean/",
     );
     const req8 = await fetch(url8, {
         headers: {
@@ -795,7 +795,7 @@ async function main() {
         // "nike.splat",
         // location.href,
         params.get("url") || "chunk_4_-4.splat",
-        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding/",
+        "https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding-clean/",
     );
     const req9 = await fetch(url9, {
         headers: {
@@ -1329,18 +1329,18 @@ async function main() {
         };
     }
     // Event listeners for the buttons
-    document.getElementById('moveForward').addEventListener('touchstart',  handleTouchStart('forward'));
-    document.getElementById('moveForward').addEventListener('touchend',  handleTouchEnd('forward'));
-    document.getElementById('moveBackward').addEventListener('touchstart',  handleTouchStart('backward'));
-    document.getElementById('moveBackward').addEventListener('touchend',  handleTouchEnd('backward'));
-    document.getElementById('moveLeft').addEventListener('touchstart',  handleTouchStart('left'));
-    document.getElementById('moveLeft').addEventListener('touchend',  handleTouchEnd('left'));
-    document.getElementById('moveRight').addEventListener('touchstart',  handleTouchStart('right'));
-    document.getElementById('moveRight').addEventListener('touchend',  handleTouchEnd('right'));
-    document.getElementById('moveUp').addEventListener('touchstart',  handleTouchStart('up'));
-    document.getElementById('moveUp').addEventListener('touchend',  handleTouchEnd('up'));
-    document.getElementById('moveDown').addEventListener('touchstart',  handleTouchStart('down'));
-    document.getElementById('moveDown').addEventListener('touchend',  handleTouchEnd('down'));
+    // document.getElementById('moveForward').addEventListener('touchstart',  handleTouchStart('forward'));
+    // document.getElementById('moveForward').addEventListener('touchend',  handleTouchEnd('forward'));
+    // document.getElementById('moveBackward').addEventListener('touchstart',  handleTouchStart('backward'));
+    // document.getElementById('moveBackward').addEventListener('touchend',  handleTouchEnd('backward'));
+    // document.getElementById('moveLeft').addEventListener('touchstart',  handleTouchStart('left'));
+    // document.getElementById('moveLeft').addEventListener('touchend',  handleTouchEnd('left'));
+    // document.getElementById('moveRight').addEventListener('touchstart',  handleTouchStart('right'));
+    // document.getElementById('moveRight').addEventListener('touchend',  handleTouchEnd('right'));
+    // document.getElementById('moveUp').addEventListener('touchstart',  handleTouchStart('up'));
+    // document.getElementById('moveUp').addEventListener('touchend',  handleTouchEnd('up'));
+    // document.getElementById('moveDown').addEventListener('touchstart',  handleTouchStart('down'));
+    // document.getElementById('moveDown').addEventListener('touchend',  handleTouchEnd('down'));
 
 
     const joystickContainer = document.getElementById('joystick-container');
@@ -1557,7 +1557,7 @@ async function main() {
 
 
     function getChunkUrl(x, z) {
-        return `https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding/chunk_${x}_${z}.splat`;
+        return `https://ece4500jsplatdata.blob.core.windows.net/wenbobuilding-clean/chunk_${x}_${z}.splat`;
     }
 
     async function filterchunkdata(x,z,last_x,last_z) {
